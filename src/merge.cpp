@@ -20,10 +20,10 @@ void merge(Parameters& parameters) {
                                                 "GA", "GT", "GG", "GC"};
 
     std::cout << "# Indexing kmer tables ..." << std::endl;
-    std::cout << " - Indexing male table ..." << std::endl;
-    index_file(male_table_file, index_files_names, "_m");
-    std::cout << " - Indexing female table ..." << std::endl;
-    index_file(female_table_file, index_files_names, "_f");
+    std::thread male_thread(index_file, std::ref(male_table_file), std::ref(index_files_names), "_m");
+    std::thread female_thread(index_file, std::ref(female_table_file), std::ref(index_files_names), "_f");
+    male_thread.join();
+    female_thread.join();
 
     uint kmer_count = 0;
 
@@ -34,6 +34,7 @@ void merge(Parameters& parameters) {
         remove((file_name + "_f" + ".kpool.tmp").c_str());
     }
 
+    std::cout << "# Final kmers count : " << kmer_count << std::endl;
 }
 
 
@@ -41,6 +42,7 @@ void merge(Parameters& parameters) {
 void index_file(std::ifstream& input_file, std::vector<std::string>& index_files_names, std::string suffix) {
 
     std::unordered_map<std::string, std::ofstream> index_files;
+    std::map<std::string, std::string> sex_corr {{"_m", "Males"}, {"_f", "Females"}};
 
     for (auto file_name: index_files_names) index_files[file_name].open(file_name + suffix + ".kpool.tmp");
 
@@ -49,7 +51,7 @@ void index_file(std::ifstream& input_file, std::vector<std::string>& index_files
 
     while (std::getline(input_file, line)) {
 
-        if (lines % 25000000 == 0) std::cout << "    -> Processed " << lines / 1000000 << " M. lines." << std::endl;
+        if (lines % 25000000 == 0) std::cout << " - " << sex_corr[suffix] << " file : processed " << lines / 1000000 << " M. lines." << std::endl;
         ++lines;
         index_files[line.substr(0, 2)] << line << "\n";
     }
