@@ -49,7 +49,7 @@ void filter(Parameters& parameters) {
 
         if (freq[0] >= min_hetero_cov and freq[0] <= max_hetero_cov and freq[1] <= max_homo_cov) output_file << line << "\n";
 
-        if (lines % 25000000 == 0) std::cout << "    -> Processed " << lines % 1000000 << " M. lines." << std::endl;
+        if (lines % 10000000 == 0) std::cout << "    -> Processed " << lines % 1000000 << " M. lines." << std::endl;
         ++lines;
     }
 }
