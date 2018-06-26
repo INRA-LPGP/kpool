@@ -1,11 +1,5 @@
-#ifndef FILTER_H
-#define FILTER_H
+#pragma once
+#include "parameters.h"
+#include "utils.h"
 
-
-class filter
-{
-    public:
-        filter();
-};
-
-#endif // FILTER_H
+void filter(Parameters& parameters);
