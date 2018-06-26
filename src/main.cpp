@@ -1,18 +1,20 @@
-#include "arg_parser.h"
-#include "merger.h"
+#include "kpool.h"
 
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
 
-    ArgParser cmd_options(argc, argv);
 
-    Parameters parameters;
+    /* Kpool is a class that controls the entire programme
+     * This class creates one object for each type of analysis.
+     * Each analysis object will has its own parser to handle its specific arguments.
+     * During initialization, the main parser is first run to check the type of analysis selected,
+     * then the analysis-specific parser is run to parser the analysis-specific arguments.
+     */
 
-    cmd_options.set_parameters(parameters);
+    Kpool kpool(argc, argv);
 
-    cmd_options.print_parameters();
-
-    merge_tables(parameters);
+    // If everything went well, the analysis is run
+    kpool.run();
 
     return 0;
 }

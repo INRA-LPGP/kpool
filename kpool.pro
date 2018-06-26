@@ -4,13 +4,21 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-    src/arg_parser.cpp \
     src/utils.cpp \
     src/main.cpp \
-    src/merger.cpp
+    src/main.cpp \
+    src/utils.cpp \
+    src/kpool.cpp \
+    src/merge.cpp \
+    src/filter.cpp
 
 HEADERS += \
-    src/arg_parser.h \
     src/parameters.h \
     src/utils.h \
-    src/merger.h
+    src/analysis.h \
+    src/parameter.h \
+    src/parameters.h \
+    src/utils.h \
+    src/kpool.h \
+    src/merge.h \
+    src/filter.h
