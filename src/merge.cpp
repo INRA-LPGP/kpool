@@ -50,7 +50,7 @@ void index_file(std::ifstream& input_file, std::vector<std::string>& index_files
     while (std::getline(input_file, line)) {
 
         if (lines % 25000000 == 0) std::cout << "    -> Processed " << lines % 1000000 << " M. lines." << std::endl;
-        ++line;
+        ++lines;
         index_files[line.substr(0, 2)] << line << "\n";
     }
 
