@@ -42,7 +42,7 @@ void index_file(std::ifstream& input_file, std::vector<std::string>& index_files
 
     std::unordered_map<std::string, std::ofstream> index_files;
 
-    for (auto file_name: index_files_names) index_files[file_name].open(file_name + suffix + ".kpool.tmp", std::ios::binary);
+    for (auto file_name: index_files_names) index_files[file_name].open(file_name + suffix + ".kpool.tmp");
 
     std::string line;
     uint lines = 0;
@@ -64,8 +64,8 @@ void process_batch(std::string& file_name, std::ofstream& output_file, uint& kme
     std::unordered_map<std::string, std::pair<uint32_t, uint32_t>> table;
 
     std::ifstream male_file, female_file;
-    male_file.open(file_name + "_m" + ".kpool.tmp", std::ios::binary);
-    female_file.open(file_name + "_f" + ".kpool.tmp", std::ios::binary);
+    male_file.open(file_name + "_m" + ".kpool.tmp");
+    female_file.open(file_name + "_f" + ".kpool.tmp");
 
     std::string line;
     std::vector<std::string> fields;
