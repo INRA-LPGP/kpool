@@ -14,10 +14,23 @@ void merge(Parameters& parameters) {
     par = "output_file";
     output_file.open(parameters.get_value_from_name<std::string>(par));
 
-    std::vector<std::string> index_files_names {"AA", "AT", "AG", "AC",
-                                                "TA", "TT", "TG", "TC",
-                                                "CA", "CT", "CG", "CC",
-                                                "GA", "GT", "GG", "GC"};
+    std::vector<std::string> index_files_names {"AAA", "AAT", "AAG", "AAC",
+                                                "ATA", "ATT", "ATG", "ATC",
+                                                "ACA", "ACT", "ACG", "ACC",
+                                                "AGA", "AGT", "AGG", "AGC",
+                                                "TAA", "TAT", "TAG", "TAC",
+                                                "TTA", "TTT", "TTG", "TTC",
+                                                "TGA", "TGT", "TGG", "TGC",
+                                                "TCA", "TCT", "TCG", "TCC",
+                                                "CAA", "CAT", "CAG", "CAC",
+                                                "CTA", "CTT", "CTG", "CTC",
+                                                "CGA", "CGT", "CGG", "CGC",
+                                                "CCA", "CCT", "CCG", "CCC",
+                                                "GAA", "GAT", "GAG", "GAC",
+                                                "GTA", "GTT", "GTG", "GTC",
+                                                "GGA", "GGT", "GGG", "GGC",
+                                                "GCA", "GCT", "GCG", "GCC",
+                                                };
 
     std::cout << "# Indexing kmer tables ..." << std::endl;
     std::thread male_thread(index_file, std::ref(male_table_file), std::ref(index_files_names), "_m");
@@ -53,7 +66,7 @@ void index_file(std::ifstream& input_file, std::vector<std::string>& index_files
 
         if (lines % 25000000 == 0) std::cout << " - " << sex_corr[suffix] << " file : processed " << lines / 1000000 << " M. lines." << std::endl;
         ++lines;
-        index_files[line.substr(0, 2)] << line << "\n";
+        index_files[line.substr(0, 3)] << line << "\n";
     }
 
     for (auto file_name: index_files_names) index_files[file_name].close();
